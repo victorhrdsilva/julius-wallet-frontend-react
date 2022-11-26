@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import UserContext from '../Context/UserContext';
 
 export default function FormStyled({ children }) {
-    const { loading } = useContext(UserContext);
+    const { confirmPassword, loading } = useContext(UserContext);
 
     return (
         <>
             {loading ? <InvisibleLayer></InvisibleLayer> : ""}
-            <Wrapper loading={loading}>
+            <Wrapper confirmPassword={confirmPassword} loading={loading}>
                 {children}
             </Wrapper>
         </>
@@ -71,10 +71,12 @@ const Wrapper = styled.div`
         border-radius: 5px;
         box-sizing: border-box;
         background-color: #A328D6;
-        color: #FFFFFF;
+        color: ${props => props.confirmPassword ? '#FFFFFF' : '#A366D6'};
         font-size: 21px;
         border: none;
         font-weight: 700;
+        transition: all 0.4s 0s ease;
+        pointer-events: ${props => props.confirmPassword ? 'auto' : 'none'};
     }
     p {
         color: #FFFFFF;

@@ -12,13 +12,19 @@ export default function LoginPage() {
     });
 
     const navigate = useNavigate();
-    const { loading, setLoading } = useContext(UserContext)
+    const { loading, setLoading, setConfirmPassword } = useContext(UserContext)
 
     function handleForm(event) {
         setForm({
             ...form,
             [event.target.name]: event.target.value
         });
+
+        if(form.email.length > 0 && form.password.length > 0){
+            setConfirmPassword(true)
+        } else {
+            setConfirmPassword(false)
+        }
     }
 
     function Submit(event) {
@@ -27,9 +33,8 @@ export default function LoginPage() {
         setLoading(true);
 
         login(form).then((res) => {
-            localStorage.setItem("happenToken", res.data.token);
-            localStorage.setItem("userImage", res.data.image);
-            navigate('/habits');
+            localStorage.setItem("juliusWalletToken", res.data.token);
+            navigate('/home');
             setLoading(false);
         }).catch((res) => { 
             alert(res.response.data.message);

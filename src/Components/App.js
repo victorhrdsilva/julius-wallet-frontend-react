@@ -10,6 +10,7 @@ import { useState } from 'react';
 export default function App() {
     const [loading, setLoading] = useState(false);
     const [reload, setReload] = useState(0);
+    const [confirmPassword, setConfirmPassword] = useState(false)
 
     return (
         <>
@@ -20,7 +21,9 @@ export default function App() {
                         loading,
                         setLoading,
                         reload,
-                        setReload
+                        setReload,
+                        confirmPassword,
+                        setConfirmPassword
                     }
                 }>
                 <BrowserRouter>

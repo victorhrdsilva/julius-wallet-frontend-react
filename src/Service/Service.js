@@ -8,7 +8,7 @@ let config = {
 }
 
 function createHeaders() {
-    const auth = localStorage.getItem("happenToken");
+    const auth = localStorage.getItem("juliusWalletToken");
     config = {
       headers: {
         Authorization: `Bearer ${auth}`
