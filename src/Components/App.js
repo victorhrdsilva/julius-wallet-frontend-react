@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import GlobalStyle from '../Styled/GlobalStyles.js';
 import UserContext from '../Context/UserContext.js';
 import LoginPage from './LoginPage.js';
 import RegisterPage from './RegisterPage'
-import { useState } from 'react';
+import Home from './Home.js';
 
 
 
@@ -30,6 +31,15 @@ export default function App() {
                     <Routes>
                         <Route path="/" element={<LoginPage />}></Route>
                         <Route path='/register' element={<RegisterPage />}></Route>
+                        <Route path='/home' element={<Home />}></Route>
+{/*                         <Route
+                            path="/home"
+                            element={
+                                <PrivatePage>
+                                    <Home />
+                                </PrivatePage>
+                            }
+                        /> */}
                     </Routes>
                 </BrowserRouter>
             </UserContext.Provider>

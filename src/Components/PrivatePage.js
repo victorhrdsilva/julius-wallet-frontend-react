@@ -1,6 +1,6 @@
 
 export default function PrivatePage({ children }) {
-    const token = localStorage.getItem("happenToken");
+    const token = localStorage.getItem("juliusWalletToken");
 
     
     if (token) {
