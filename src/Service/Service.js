@@ -19,24 +19,29 @@ function createHeaders() {
 };
 
 function login(body) {
-  const promise = axios.post(`${url}auth/login`, body);
+  const promise = axios.post(`${url}login`, body);
   return promise;
 };
 
 function register(body) {
-  const promise = axios.post(`${url}auth/sign-up`, body);
+  const promise = axios.post(`${url}sign-up`, body);
   promise.then(console.log(promise.data))
   return promise;
 };
 
-/* function create(body) {
+function registerInflow(body) {
   const config = createHeaders();
-  const promise = axios.post(`${url}habits`, body, config);
-  console.log(body)
+  const promise = axios.post(`${url}inflow`, body, config);
   return promise;
 };
 
-function getHabits() {
+function registerOutflow(body) {
+  const config = createHeaders();
+  const promise = axios.post(`${url}outflow`, body, config);
+  return promise;
+};
+
+/* function getHabits() {
   const config = createHeaders();
   const promise = axios.get(`${url}habits`, config);
   return promise;
@@ -67,4 +72,4 @@ function setHabitsTodayUndone(id) {
   return promise; 
 };*/
 
-export { login, register };
+export { login, register, registerInflow, registerOutflow };

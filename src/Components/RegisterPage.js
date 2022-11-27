@@ -7,7 +7,7 @@ import { ThreeDots } from 'react-loader-spinner';
 /* import logo from '../image/ativo2.png';
  */
 export default function RegisterPage() {
-    const { loading, setLoading, setConfirmPassword } = useContext(UserContext)
+    const { loading, setLoading, setConfirmPassword } = useContext(UserContext);
 
     const [form, setForm] = useState({
         email: "",
@@ -16,7 +16,7 @@ export default function RegisterPage() {
     });
     const navigate = useNavigate();
 
-    function releaseSendButton (event) {
+    function releaseSendButton(event) {
         if (form.password == event.target.value && form.email.length > 0 && form.password.length > 0 && form.name.length > 0) {
             setConfirmPassword(true)
         } else {
@@ -51,8 +51,7 @@ export default function RegisterPage() {
 
     return (
         <FormStyled>
-{/*             <img src={logo} alt="logo"></img>
- */}            <form onSubmit={Submit}>
+            <form onSubmit={Submit}>
                 <input name="name" type="text" placeholder="nome" onChange={handleForm} required></input>
                 <input name="email" type="email" placeholder="email" onChange={handleForm} required></input>
                 <input name="password" type="password" placeholder="senha" onChange={handleForm} required></input>

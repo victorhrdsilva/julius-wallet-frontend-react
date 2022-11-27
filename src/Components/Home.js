@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Home() {
+    const navigate = useNavigate();
 
     return (
         <Wrapper>
@@ -8,7 +11,10 @@ export default function Home() {
                 <h2>
                     Olá, Fulano
                 </h2>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <ion-icon onClick={() => {
+                    localStorage.removeItem("juliusWalletToken")
+                    navigate('/')
+                }} name="log-out-outline"></ion-icon>
             </Header>
             <ScreenExtract>
                 <p>
@@ -16,7 +22,7 @@ export default function Home() {
                 </p>
             </ScreenExtract>
             <Buttons>
-                <div>
+                <div onClick={() => navigate('/inflow')}>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <div>
                         <p>
@@ -29,7 +35,7 @@ export default function Home() {
                 </div>
                 <div>
                     <ion-icon name="remove-circle-outline"></ion-icon>
-                    <div>
+                    <div onClick={() => navigate('/outflow')}>
                         <p>
                             Nova
                         </p>
@@ -82,7 +88,7 @@ const ScreenExtract = styled.div`
 
 const Buttons = styled(Header)`
     width: 80vw;
-    margin-bottom: 25px;
+    margin: 0 0 25px;
     div{
         display: flex;
         flex-direction: column;

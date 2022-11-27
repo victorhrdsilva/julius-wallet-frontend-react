@@ -56,11 +56,8 @@ const Wrapper = styled.div`
         color: ${props => props.loading ? '#AFAFAF' : "black"};
         background-color: ${props => props.loading ? '#FFFFFF' : 'var(--secundary-background-color)'};
 
-        &::placeholder {
-        color: var(--border-color-input);
-        }
-
     }
+
     button {
         display: flex;
         justify-content: center;
@@ -86,3 +83,4 @@ const Wrapper = styled.div`
         max-width: 80vw;
     }
 `
+
