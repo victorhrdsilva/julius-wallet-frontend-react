@@ -5,6 +5,58 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
     const navigate = useNavigate();
 
+    const data = [
+        {
+            date: "27/11",
+            description: "Mercado",
+            value: 21.2,
+            type: "inflow"
+        },
+        {
+            date: "27/11",
+            description: "Mercado",
+            value: 21.2,
+            type: "inflow"
+        },
+        {
+            date: "27/11",
+            description: "Mercado",
+            value: 21.2,
+            type: "outflow"
+        }
+    ]
+
+    function calculateBalance() {
+        const result = data.reduce((accumulator, object) => {
+            if (object.type == "inflow") {
+                return accumulator + object.value
+            } else {
+                return accumulator - object.value
+            }
+        }, 0).toFixed(2);
+
+        if (result >= 0) {
+            return (
+                <Moviment type={"inflow"}>
+                    <strong>
+                        SALDO
+                    </strong>
+                    <span>R$ {result}</span>
+                </Moviment>
+            )
+        } else {
+            return (
+                <Moviment type={"outflow"}>
+                    <strong>
+                        SALDO
+                    </strong>
+                    <span>R$ {result}</span>
+                </Moviment>
+            )
+        };
+
+    }
+
     return (
         <Wrapper>
             <Header>
@@ -17,9 +69,29 @@ export default function Home() {
                 }} name="log-out-outline"></ion-icon>
             </Header>
             <ScreenExtract>
-                <p>
+                {/*                 <Datas>
                     Não há registros de entradas ou saídas
-                </p>
+                </Datas> */}
+                <div>
+                    {data.map((element) => {
+                        return (
+                            <Moviment type={element.type}>
+                                <div>
+                                    <span>
+                                        {element.date}
+                                    </span>
+                                    <p>
+                                        {element.description}
+                                    </p>
+                                </div>
+                                <span>
+                                    R$ {element.value.toFixed(2)}
+                                </span>
+                            </Moviment>
+                        )
+                    })}
+                </div>
+                {calculateBalance()}
             </ScreenExtract>
             <Buttons>
                 <div onClick={() => navigate('/inflow')}>
@@ -71,18 +143,23 @@ const Header = styled.div`
 `
 const ScreenExtract = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     width: 80vw;
     height: 70vh;
     background-color: #FFFFFF;
-    color: #868686;
     border-radius: 5px;
     margin: 22px 0 13px;
-    p{
-        width: 180px;
-        text-align: center;
-        font-size: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    strong{
+        font-weight: 700;
+        font-size: 18px;
+    }
+    div{
+        max-height: 90%;
+        overflow: scroll;
     }
 `
 
@@ -109,5 +186,37 @@ const Buttons = styled(Header)`
             padding: 0;
             background-color: transparent;
         }
+    }
+`
+const Datas = styled(ScreenExtract)`
+    align-items: center;
+    justify-content: center;
+    color: #868686;
+    p{
+        width: 180px;
+        text-align: center;
+        font-size: 20px;
+    }
+`
+
+const Moviment = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    div{
+        display: flex;
+        span{
+            margin-right: 15px;
+            color: #C6C6C6;
+        }
+        p{
+            color: black;
+            max-width: 70%;
+            overflow: hidden;
+        }
+    }
+    span {
+        color: ${props => props.type == 'inflow' ? '#03AC00' : "#C70000"};
+        white-space: nowrap;
     }
 `
