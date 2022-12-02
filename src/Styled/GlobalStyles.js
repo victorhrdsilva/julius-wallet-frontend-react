@@ -53,19 +53,6 @@ table {
 * {
     font-family: 'Raleway', sans-serif !important;
     text-decoration: none;
-	//VARIABLES
-	
-		--background-color: #E5E5E5;
-		--secundary-background-color: #FFFFFF;
-		--border-color-input: #D4D4D4;
-		--secundary-background-color-input: #F2F2F2;
-		--primary-color: #126BA5;
-		--secondary-color: #daff00;
-		--primary-text-color: #666666;
-		--secundary-text-color: #4D4D4D;
-		--selected-button-color: #CFCFCF;
-		--text-input-color: #B3B3B3;
-		--sucess-color: #8FC549;
 }
 
 `;
