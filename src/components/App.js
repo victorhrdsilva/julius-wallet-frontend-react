@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import GlobalStyle from '../Styled/GlobalStyles.js';
-import UserContext from '../Context/UserContext.js';
+import GlobalStyle from '../styled/GlobalStyles.js';
+import UserContext from '../context/UserContext.js';
 import LoginPage from './LoginPage.js';
 import RegisterPage from './RegisterPage.js'
 import Home from './Home.js';

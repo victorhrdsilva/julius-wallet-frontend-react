@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
+import { useState, useEffect, useContext } from 'react';
+import { getHistory } from '../service/Service';
+import UserContext from '../context/UserContext';
 
 export default function Home() {
     const navigate = useNavigate();
+    const [data, setData] = useState([]);
+    const { reload } = useContext(UserContext);
 
-    const data = [
+    useEffect(() => {
+        getHistory().then((res => {
+            setData(res.data);
+        })).catch((res) => {
+            alert(res.response.data.message);
+        })
+    }, [reload]
+    );
+
+/*   const data = [
         {
             date: "27/11",
             description: "Mercado",
@@ -24,14 +37,15 @@ export default function Home() {
             value: 21.2,
             type: "outflow"
         }
-    ]
+    ] */
 
     function calculateBalance() {
+        if (data.length === 0) return
         const result = data.reduce((accumulator, object) => {
             if (object.type == "inflow") {
-                return accumulator + object.value
+                return accumulator + parseFloat(object.value)
             } else {
-                return accumulator - object.value
+                return accumulator - parseFloat(object.value)
             }
         }, 0).toFixed(2);
 
@@ -61,7 +75,7 @@ export default function Home() {
         <Wrapper>
             <Header>
                 <h2>
-                    Olá, Fulano
+                    Olá, {localStorage.getItem("juliusWalletName")}
                 </h2>
                 <ion-icon onClick={() => {
                     localStorage.removeItem("juliusWalletToken")
@@ -69,11 +83,9 @@ export default function Home() {
                 }} name="log-out-outline"></ion-icon>
             </Header>
             <ScreenExtract>
-                {/*                 <Datas>
-                    Não há registros de entradas ou saídas
-                </Datas> */}
+                {data.length === 0 ? <Datas>Não há registros de entradas ou saídas</Datas> : ""}
                 <div>
-                    {data.map((element) => {
+                    {data?.map((element) => {
                         return (
                             <Moviment type={element.type}>
                                 <div>
@@ -85,7 +97,7 @@ export default function Home() {
                                     </p>
                                 </div>
                                 <span>
-                                    R$ {element.value.toFixed(2)}
+                                    R$ {parseFloat(element.value).toFixed(2)}
                                 </span>
                             </Moviment>
                         )
@@ -192,11 +204,9 @@ const Datas = styled(ScreenExtract)`
     align-items: center;
     justify-content: center;
     color: #868686;
-    p{
-        width: 180px;
-        text-align: center;
-        font-size: 20px;
-    }
+    max-width: 75vw;
+    text-align: center;
+    font-size: 20px;
 `
 
 const Moviment = styled.div`

@@ -1,11 +1,11 @@
-import FormStyled from "../Styled/FormStyled"
+import FormStyled from "../styled/FormStyled"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
-import { register } from "../Service/Service";
-import UserContext from "../Context/UserContext";
+import { register } from "../service/Service";
+import UserContext from "../context/UserContext";
 import { ThreeDots } from 'react-loader-spinner';
-/* import logo from '../image/ativo2.png';
- */
+
+
 export default function RegisterPage() {
     const { loading, setLoading, setConfirmPassword } = useContext(UserContext);
 
@@ -40,12 +40,10 @@ export default function RegisterPage() {
                 navigate("/");
                 setLoading(false);
                 setConfirmPassword(false)
-            }).catch(() => {
-                alert((res) => {
-                    alert(res.response.data.message);
-                    setLoading(false)
-                })
-            })
+            }).catch((res) => {
+                    alert(res.response.data);
+                    setLoading(false);
+                });
     }
 
 

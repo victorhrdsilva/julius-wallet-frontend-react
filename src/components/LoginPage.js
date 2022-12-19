@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import FormStyled from '../Styled/FormStyled.js'
-import { login } from "../Service/Service";
-import UserContext from "../Context/UserContext.js";
+import FormStyled from '../styled/FormStyled.js'
+import { login } from "../service/Service";
+import UserContext from "../context/UserContext.js";
 import {ThreeDots} from 'react-loader-spinner';
 
 export default function LoginPage() {
@@ -34,17 +34,18 @@ export default function LoginPage() {
 
         login(form).then((res) => {
             localStorage.setItem("juliusWalletToken", res.data.token);
+            localStorage.setItem("juliusWalletName", res.data.name);
             navigate('/home');
             setLoading(false);
         }).catch((res) => { 
-            alert(res.response.data.message);
+            console.log(res)
+            alert(res.response.data);
             setLoading(false)
         });
     }
 
     return (
         <FormStyled>
-            {/* <img src={logo} alt="logo"></img> */}
             <form onSubmit={Submit}>
                 <input name="email" value={form.email} type="email" placeholder="email" onChange={handleForm} required></input>
                 <input name="password" value={form.password} type="password" placeholder="senha" onChange={handleForm} required></input>

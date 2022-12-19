@@ -1,16 +1,17 @@
-import FormStyled from '../Styled/FormStyled';
-import UserContext from '../Context/UserContext';
+import FormStyled from '../styled/FormStyled';
+import UserContext from '../context/UserContext';
 import { useContext, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import { FormMovement } from '../Styled/FormMovement';
-import {registerOutflow} from '../Service/Service.js'
+import { FormMovement } from '../styled/FormMovement';
+import {postNewHistory} from '../service/Service.js'
 import { useNavigate } from 'react-router-dom';
 
-export default function NewOutflow() {
-    const { loading, setLoading, setConfirmPassword } = useContext(UserContext);
+export default function NewInflow() {
+    const { loading, setLoading, setConfirmPassword, setReload, reload } = useContext(UserContext);
     const [form, setForm] = useState({
         value: "",
-        description: ""
+        description: "",
+        type: "inflow"
     });
     const navigate = useNavigate();
 
@@ -26,33 +27,33 @@ export default function NewOutflow() {
         } else {
             setConfirmPassword(false)
         }
-    }
+    };
 
     function Submit(event) {
         event.preventDefault();
         setLoading(true);
 
-        registerOutflow(form)
+        postNewHistory(form)
             .then(() => {
                 navigate("/home");
                 setLoading(false);
                 setConfirmPassword(false);
-            }).catch(() => {
-                alert((res) => {
+                setReload(reload++)
+            }).catch((res) => {
                     alert(res.response.data.message);
                     setLoading(false);
                     setConfirmPassword(false);
-                })
             })
-    }
+    };
+
     return (
         <FormStyled>
             <FormMovement>
-                <h2>Nova saída</h2>
+                <h2>Nova entrada</h2>
                 <form onSubmit={Submit}>
-                    <input name='value' type='number' placeholder="Valor" onChange={handleForm} required></input>
+                    <input name='value' type='number' placeholder="Valor" step="any" onChange={handleForm} required></input>
                     <input name='description' type='text' placeholder="Descrição" onChange={handleForm} required></input>
-                    <button type="submit" value="Salvar saída">{loading ? <ThreeDots
+                    <button type="submit" value="Salvar entrada">{loading ? <ThreeDots
                         height="80"
                         width="80"
                         radius="9"
@@ -61,7 +62,7 @@ export default function NewOutflow() {
                         wrapperStyle={{}}
                         wrapperClassName=""
                         visible={true}
-                    /> : "Salvar saída"}</button>
+                    /> : "Salvar entrada"}</button>
                 </form>
             </FormMovement>
         </FormStyled>

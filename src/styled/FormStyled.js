@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import UserContext from '../Context/UserContext';
+import UserContext from '../context/UserContext';
 
 export default function FormStyled({ children }) {
     const { confirmPassword, loading } = useContext(UserContext);
