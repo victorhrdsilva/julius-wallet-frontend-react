@@ -18,27 +18,6 @@ export default function Home() {
     }, [reload]
     );
 
-/*   const data = [
-        {
-            date: "27/11",
-            description: "Mercado",
-            value: 21.2,
-            type: "inflow"
-        },
-        {
-            date: "27/11",
-            description: "Mercado",
-            value: 21.2,
-            type: "inflow"
-        },
-        {
-            date: "27/11",
-            description: "Mercado",
-            value: 21.2,
-            type: "outflow"
-        }
-    ] */
-
     function calculateBalance() {
         if (data.length === 0) return
         const result = data.reduce((accumulator, object) => {
